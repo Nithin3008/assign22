@@ -17,10 +17,12 @@ export const fetchEvents = createAsyncThunk("events/fetchEvents", async () => {
 export const addEvent = createAsyncThunk(
   "events/addEvent",
   async (newEventData) => {
+    console.log(newEventData);
     const response = await axios.post(
-      "https://assign22.nithinrocky30.repl.co/events",
+      "https://assign22.nithinrocky30.repl.co/addevents",
       newEventData
     );
+    console.log(response);
     return response.data.addedEvent;
   }
 );

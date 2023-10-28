@@ -2,12 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import VolunteerUi from "../components/VolunteerUi";
-import {
-  addEvent,
-  fetchEvents,
-  deleteEvent,
-  updateEvent,
-} from "../Redux/eventsRedux";
+import { fetchEvents } from "../Redux/eventsRedux";
 import {
   addVolunteer,
   fetchVolunteers,
@@ -24,13 +19,17 @@ const Volunteer = () => {
 
   function getEventsForm(event) {
     event.preventDefault();
+    const selectedEvents = Array.from(
+      event.target.events.selectedOptions,
+      (option) => option.value
+    );
     const data = {
       name: event.target.volunteername.value,
       contact: event.target.contact.value,
       skills: event.target.skills.value,
       availability: event.target.availability.value,
       areasOfInterest: event.target.intrests.value,
-      events: event.target.events.value,
+      events: selectedEvents,
     };
     console.log(data);
     dispatch(addVolunteer(data));
@@ -75,13 +74,6 @@ const Volunteer = () => {
     const editVolunteerData = {
       ...editData,
       areasOfInterest: event.target.value,
-    };
-    setEditData(editVolunteerData);
-  }
-  function editEvents(event) {
-    const editVolunteerData = {
-      ...editData,
-      events: event.target.value,
     };
     setEditData(editVolunteerData);
   }
@@ -135,7 +127,7 @@ const Volunteer = () => {
             type="text"
           />
           <label>Events: </label>
-          <select id="events">
+          <select id="events" multiple>
             <option value="">Select</option>
             {events.map((event) => (
               <option value={event.name}>{event.name}</option>
@@ -214,13 +206,7 @@ const Volunteer = () => {
             value={editData.areasOfInterest}
             onChange={editIntrests}
           />
-          <label>Events: </label>
-          <select id="events" onChange={editEvents} value={editData.events}>
-            <option value="">Select</option>
-            {events.map((event) => (
-              <option value={event.name}>{event.name}</option>
-            ))}
-          </select>
+
           <button
             className="border-2 p-2 bg-blue-500 border-blue-500 rounded-md"
             type="submit"
@@ -250,7 +236,7 @@ const Volunteer = () => {
           className="bg-blue-500 p-2 text-white rounded text-lg mt-2"
           onClick={() => setDisplay((s) => !s)}
         >
-          Add Item
+          Add Volunteer
         </button>
       </div>
     </>

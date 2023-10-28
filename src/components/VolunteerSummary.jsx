@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteVolunteer } from "../Redux/volunteerRedux";
-const VolunteerUi = ({ data, edit, form }) => {
+const VolunteerSummaryUi = ({ data }) => {
   const dispatch = useDispatch();
 
   return (
@@ -33,24 +33,8 @@ const VolunteerUi = ({ data, edit, form }) => {
           <span key={val}>{val},</span>
         ))}
       </p>
-
-      <button
-        onClick={() => dispatch(deleteVolunteer(data._id))}
-        className="bg-red-500 p-2 text-white rounded text-lg "
-      >
-        Delete
-      </button>
-      <button
-        className="bg-red-500 p-2 text-white rounded text-lg ml-2"
-        onClick={() => {
-          edit(data);
-          form();
-        }}
-      >
-        Edit
-      </button>
     </li>
   );
 };
 
-export default VolunteerUi;
+export default VolunteerSummaryUi;

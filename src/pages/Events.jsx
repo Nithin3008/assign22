@@ -1,13 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import {
-  addEvent,
-  fetchEvents,
-  deleteEvent,
-  updateEvent,
-} from "../Redux/eventsRedux";
+import EventsUi from "../components/EventsUi";
+import { addEvent, fetchEvents, updateEvent } from "../Redux/eventsRedux";
 const Events = () => {
   const dispatch = useDispatch();
   const eventsList = useSelector((state) => state.events.events);
@@ -21,7 +16,7 @@ const Events = () => {
       date: event.target.date.value,
       location: event.target.location.value,
       description: event.target.description.value,
-      volunteerRequired: event.target.volunteerRequired.value,
+      volunteersRequired: event.target.volunteerRequired.value,
     };
     console.log(data);
     dispatch(addEvent(data));
@@ -49,7 +44,7 @@ const Events = () => {
     setEditData(newName);
   }
   function editDate(event) {
-    const editEventData = { ...editData, date: event.date.value };
+    const editEventData = { ...editData, date: event.target.value };
     setEditData(editEventData);
   }
   function editLocation(event) {
@@ -64,7 +59,7 @@ const Events = () => {
   function editVolunteerRequired(event) {
     const editEventData = {
       ...editData,
-      volunteerRequired: event.target.value,
+      volunteersRequired: event.target.value,
     };
     setEditData(editEventData);
   }
@@ -116,7 +111,7 @@ const Events = () => {
           <input
             className="border-2 border-gray-400"
             name="volunteerRequired"
-            type="text"
+            type="number"
           />
           <button
             className="border-2 p-2 bg-blue-500 border-blue-500 rounded-md"
@@ -157,7 +152,6 @@ const Events = () => {
           <label>Date </label>
           <input
             className="border-2 border-gray-400"
-            required
             id="date"
             type="date"
             value={editData.date}
@@ -185,8 +179,8 @@ const Events = () => {
           <input
             className="border-2 border-gray-400"
             name="volunteersRequired"
-            type="text"
-            value={editData.volunteerRequired}
+            type="number"
+            value={editData.volunteersRequired}
             onChange={(e) => editVolunteerRequired(e)}
           />
           <button
@@ -203,22 +197,22 @@ const Events = () => {
           Cancel
         </button>
       </div>
-      {/* <ul>
-        {patientsList?.patients.map((val) => (
-          <PatientsUi
+      <ul>
+        {eventsList.map((val) => (
+          <EventsUi
             key={val._id}
             data={val}
             edit={newEditData}
             form={editForm}
-          ></PatientsUi>
+          ></EventsUi>
         ))}
-      </ul> */}
+      </ul>
       <div className="text-center">
         <button
           className="bg-blue-500 p-2 text-white rounded text-lg mt-2"
           onClick={() => setDisplay((s) => !s)}
         >
-          Add Item
+          Add Event
         </button>
       </div>
     </>

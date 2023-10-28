@@ -44,7 +44,7 @@ export const deleteVolunteer = createAsyncThunk(
   "volunteers/deleteVolunteer",
   async (volunteerId) => {
     const response = await axios.delete(
-      `https://assign22.nithinrocky30.repl.co/${volunteerId}`
+      `https://assign22.nithinrocky30.repl.co/volunteers/${volunteerId}`
     );
     return response.data.deletedVolunteer;
   }
